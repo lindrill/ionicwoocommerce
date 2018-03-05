@@ -17,21 +17,6 @@
     </ion-slides>
   </ion-card>
 
-  <!-- <div id="products" *ngFor="let product of products">
-    <ion-card>
-      <img src="{{ product.images[0].src }}"/>
-      
-      <ion-card-content>
-        <ion-card-title>
-          {{product.name}}
-          </ion-card-title>
-        <p class="product-desc" [innerHTML]="product.short_description"></p>
-        <span class="product-price">{{product.price}}</span>
-        <span *ngIf="product.on_sale" class="product-sale">{{product.sale_price}}</span>
-      </ion-card-content>
-    </ion-card>
-  </div> -->
-
   <ion-list>
     <ion-item *ngFor="let product of more_products" text-wrap>
       <ion-thumbnail item-left>

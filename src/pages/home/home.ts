@@ -19,8 +19,8 @@ export class HomePage {
 
   	this.Woocommerce = WC({
   		url: "http://localhost/wordpress",
-  		consumerKey: 'ck_edcc047b31c7c20e86885fd4e28c25e105fa190b',
-  		consumerSecret: 'cs_ce1dc538100cc2a86d2be05304b548b32902c483',
+  		consumerKey: 'ck_6c57fb4427600f212a94317e36b282094513910f',
+  		consumerSecret: 'cs_0a49c15c4036fe48bfe6dd62f6bfda600bc48b28',
   		wpAPI: true,
   		version: 'wc/v2',
   		queryStringAuth: true
@@ -36,6 +36,7 @@ export class HomePage {
   	});
   }
 
+  //infinite scroll
   loadMoreProducts(event) {
   	if(event == null) {
   		this.page = 1;
@@ -43,15 +44,16 @@ export class HomePage {
   	} else {
   		this.page++;
   	}
+
   	this.Woocommerce.getAsync("products?page=" + this.page).then((data) => {
-  		console.log(JSON.parse(data.body));
+  		// console.log(JSON.parse(data.body));
   		this.more_products = this.more_products.concat(JSON.parse(data.body));
   		
   		if (event != null) {
   			event.complete();
   		}
 
-  		console.log("length" + JSON.parse(data.body).length);
+  		// console.log("length" + JSON.parse(data.body).length);
 
   		if(JSON.parse(data.body).length == 0) {
   			event.enable(false);

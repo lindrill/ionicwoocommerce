@@ -5,11 +5,19 @@
     </ion-toolbar>
   </ion-header>
 
-  <ion-content>
+  <ion-content class="page-menu">
+    <ion-card>
+      <img src="../assets/imgs/crochet_logo.jpeg"/>
+      <div class="store-title">Crochet Lovers Lane</div>
+      <div class="store-subtitle">Keep shopping!</div>
+    </ion-card>
     <ion-list>
-      <button menuClose ion-item>
-        Home
-      </button>
+      <ion-item  *ngFor="let category of categories" text-wrap (click)="openCategoryPage(category)">
+        <ion-icon [name]="category.icon" item-start></ion-icon>
+          <h2>{{ category.name }}</h2>
+          <p>{{ category.description }}</p>
+        <!-- <ion-icon name="rose" item-end></ion-icon> -->
+      </ion-item>
     </ion-list>
   </ion-content>
 

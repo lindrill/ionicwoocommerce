@@ -5,6 +5,8 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 
 import { HomePage } from '../pages/home/home';
 import { MenuPage } from '../pages/menu/menu';
+import { ProductByCategoriesPage } from '../pages/product-by-categories/product-by-categories';
+
 
 @Component({
   templateUrl: 'app.html'
@@ -14,7 +16,7 @@ export class MyApp {
 
   rootPage: any = MenuPage;
 
-  // pages: Array<{title: string, component: any}>;
+  pages: Array<{title: string, component: any}>;
 
   constructor(public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen) {
     this.initializeApp();
