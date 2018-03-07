@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 import { HomePage } from '../home/home';
 import { ProductByCategoriesPage } from '../product-by-categories/product-by-categories';
+import { Storage } from '@ionic/storage';
+
 import * as WC from 'woocommerce-api';
 
 @Component({
@@ -14,7 +16,7 @@ export class MenuPage {
 	categories = [];
 
 	homePage: any;
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public storage: Storage) {
 
   	this.homePage = HomePage;
 
@@ -30,7 +32,7 @@ export class MenuPage {
   	this.Woocommerce.getAsync("products/categories").then((data) => {
   		// console.log('Categories: ' + JSON.parse(data.body));
   		let filter_cat: any[] = JSON.parse(data.body);
-  		self = this;
+  		let self = this;
   		
   		//filter parent categories
   		filter_cat.forEach(function(value) {
@@ -55,7 +57,7 @@ export class MenuPage {
 
   //pass in parameter category to products by category page
   openCategoryPage(category) {
-  	this.navCtrl.setRoot(ProductByCategoriesPage, { "category": category  });
+  	// this.navCtrl.push(ProductByCategoriesPage, { "category": category  });
   }
 
   ionViewDidLoad() {

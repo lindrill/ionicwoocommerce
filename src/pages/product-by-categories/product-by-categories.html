@@ -14,15 +14,16 @@
 
 
 <ion-content padding>
+<!-- {{ products_by_cat }} -->
 	<ion-list>
-		<ion-item *ngFor="let product of products" text-wrap>
+		<ion-item *ngFor="let product of products_by_cat" text-wrap>
       <ion-thumbnail item-left>
-        <!-- <img src="{{ product.images[0].src }}"/> -->
+        <img src="{{ product.images[0].src }}"/>
       </ion-thumbnail>
-      <h2>{{product.name}}</h2>
+      <h2>{{ product.name }}</h2>
       <p>
-        <!-- <span [innerHTML]="product.short_description.substr(0, 50) + '...'"></span> -->
-        <!-- <span>{{product.price}}</span> -->
+        <span [innerHTML]="product.short_description.substr(0, 50) + '...'"></span>
+        <span>{{product.name}}</span>
       </p>
    	</ion-item>
   </ion-list>
