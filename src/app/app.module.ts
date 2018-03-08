@@ -20,7 +20,9 @@ import { IonicStorageModule } from '@ionic/storage';
   ],
   imports: [
     BrowserModule,
-    IonicModule.forRoot(MyApp),
+    IonicModule.forRoot(MyApp, {
+      pageTransition: 'md-transition'
+    }),
     IonicStorageModule.forRoot()
   ],
   bootstrap: [IonicApp],
