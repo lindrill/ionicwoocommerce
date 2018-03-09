@@ -44,6 +44,12 @@ export class MenuPage {
   				if(value.slug == 'swimwear') {
   					value.icon = 'sunny';
   				}
+          if(value.slug == 'beanies') {
+            value.icon = 'people';
+          }
+          if(value.slug == 'tops') {
+            value.icon = 'shirt';
+          }
 
   				self.categories.push(value);
   			}
@@ -57,9 +63,8 @@ export class MenuPage {
 
   getClickedCategory(category) {
     self = this;
-    
-    self.Woocommerce.getAsync("products?category=" + category).then((data) => {
-    self.navCtrl.push(ProductByCategoriesPage, {"productsbycategory": JSON.parse(data.body)});
+    self.Woocommerce.getAsync("products?category=" + category.id).then((data) => {
+    self.navCtrl.push(ProductByCategoriesPage, {"productsbycategory": JSON.parse(data.body), "category": category});
 
     }, (err) => {
       console.log(err);

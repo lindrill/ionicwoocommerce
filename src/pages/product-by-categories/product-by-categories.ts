@@ -11,6 +11,7 @@ export class ProductByCategoriesPage {
 
 	Woocommerce: any;
   products_by_cat:any = [];
+  category = [];
   finish: boolean;
 
 	page: number;
@@ -21,6 +22,7 @@ export class ProductByCategoriesPage {
 
   	this.page = 1;
     this.products_by_cat = this.navParams.get("productsbycategory")
+    this.category = this.navParams.get("category")
 
     this.Woocommerce = WC({
       url: "http://localhost/wordpress",
