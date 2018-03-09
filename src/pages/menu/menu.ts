@@ -14,8 +14,7 @@ export class MenuPage {
 
 	Woocommerce: any;
 	categories = [];
-  category: any; //on click
-  products_by_cat: any[];
+  public products_by_cat: any;
 
 	homePage: any;
   constructor(public navCtrl: NavController, public navParams: NavParams, public storage: Storage) {
@@ -32,7 +31,6 @@ export class MenuPage {
   	});
 
   	this.Woocommerce.getAsync("products/categories").then((data) => {
-  		// console.log('Categories: ' + JSON.parse(data.body));
   		let filter_cat: any[] = JSON.parse(data.body);
   		let self = this;
   		
@@ -57,54 +55,15 @@ export class MenuPage {
   	
   }
 
-  setProductsByCat() {
-    this.Woocommerce.getAsync("products?category=" + this.category.id).then((data) => {
-      let prodcat: any[] = JSON.parse(data.body);
-      let current_catid = prodcat[0].categories[0].id;
-      console.log('cat_id_stored:', current_catid);
-      if(this.category.id == current_catid) {
-        // console.log('the same')
-        // this.storage.set('prodcat', prodcat); 
-        this.products_by_cat = prodcat;
-        // console.log('products_by_cat', this.products_by_cat);
-        
-        // setTimeout(function() {
-          // console.log(self.storage.get('prodcat'));
-          // self.storage.set('prodcat', prodcat); 
-          // console.log('set products')
-        // }, 1000);
-      } else {
-        // console.log('not the same');
-        // this.storage.remove('prodcat');
-        // this.storage.set('prodcat', prodcat); 
-      }
-      
+  getClickedCategory(category) {
+    self = this;
+    
+    self.Woocommerce.getAsync("products?category=" + category).then((data) => {
+    self.navCtrl.push(ProductByCategoriesPage, {"productsbycategory": JSON.parse(data.body)});
+
     }, (err) => {
       console.log(err);
     });
-  }
-
-  // async getProductsByCat() {
-  //   return await this.storage.get('prodcat');
-  // }
-
-  //onclick get products by category
-  getClickedCategory(category) {
-    // console.log(this.storage.get('prodcat'));
-    console.log('clicked', category.id);
-    this.category = category;
-    // this.storage.ready().then(() => {
-      // this.setProductsByCat();
-    // });
-
-    // this.getProductsByCat().then((result) => {
-      // this.products_by_cat = result;
-      // console.log('result', result);
-      this.navCtrl.push(ProductByCategoriesPage, {"category": this.category});
-        // this.navCtrl.push(ProductByCategoriesPage, {"productsbycategory": this.products_by_cat});
-      // console.log('result', result);
-    // });
-
   }
 
   ionViewDidLoad() {

@@ -14,7 +14,7 @@
 
 
 <ion-content padding>
-	<ion-list *ngIf="products_by_cat" >
+	<ion-list>
 		<ion-item *ngFor="let product of products_by_cat" text-wrap>
       <ion-thumbnail item-left>
         <img src="{{ product.images[0].src }}"/>

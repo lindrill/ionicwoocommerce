@@ -12,7 +12,7 @@
       <div class="store-subtitle">Keep shopping!</div>
     </ion-card>
     <ion-list>
-      <ion-item *ngFor="let category of categories" text-wrap (click)="getClickedCategory(category)">
+      <ion-item *ngFor="let category of categories" text-wrap (click)="getClickedCategory(category.id)">
         <ion-icon [name]="category.icon" item-start></ion-icon>
           <h2>{{ category.name }}</h2>
           <p>{{ category.description }}</p>
