@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams, Platform } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
+import { ProductDetailsPage } from '../product-details/product-details';
 import * as WC from 'woocommerce-api';
 
 @Component({
@@ -33,6 +34,10 @@ export class ProductByCategoriesPage {
       queryStringAuth: true
     });
 
+  }
+
+  openProductDetailsPage(product) {
+    this.navCtrl.push(ProductDetailsPage, {'product_details': product});
   }
 
   ngOnInit() {
