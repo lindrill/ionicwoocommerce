@@ -12,12 +12,8 @@ export class ProductByCategoriesPage {
 
 	Woocommerce: any;
   products_by_cat:any = [];
-  category = [];
-  finish: boolean;
-
 	page: number;
-	category: any;
-  sample: any[];
+	category: any[];
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public storage: Storage, public plt: Platform) {
 

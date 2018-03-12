@@ -25,7 +25,7 @@
       <h2>{{product.name}}</h2>
       <p>
         <span [innerHTML]="product.short_description.substr(0, 50) + '...'"></span>
-        <span>{{product.price}}</span>
+        <span [innerHTML]="product.price_html"></span>
       </p>
     </ion-item>
 
