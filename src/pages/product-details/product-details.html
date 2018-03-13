@@ -1,7 +1,12 @@
 <ion-header>
 
-  <ion-navbar>
-	<ion-title></ion-title>
+  <ion-navbar class="page-product-details-navbar">
+	<ion-title>Product</ion-title>
+	<button ion-button clear class="top-cart-button">
+		<ion-icon ios="ios-cart" md="md-cart"></ion-icon>
+		<ion-badge color="danger">{{ total_cart }}</ion-badge>
+	</button>
+
   </ion-navbar>
 
 </ion-header>

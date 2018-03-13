@@ -13,10 +13,10 @@ export class ProductDetailsPage {
 	product_details:any = [];
 	reviews: any[];
 	cart: any[] = [];
+	total_cart: number;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public storage: Storage, public toastCtrl: ToastController) {
   	this.product_details.push(this.navParams.get("product_details"));
-  	console.log('prod', this.product_details);
 
   	this.Woocommerce = WC({
   		url: "http://localhost/wordpress",
@@ -28,9 +28,7 @@ export class ProductDetailsPage {
   	});
 
   	this.Woocommerce.getAsync("products/" + this.product_details[0].id + "/reviews").then((data) => {
-  		// console.log(JSON.parse(data.body));
   		this.reviews = JSON.parse(data.body);
-  		console.log('reviews', this.reviews);
   	}, (err) => {
   		console.log(err);
   	});
@@ -38,63 +36,83 @@ export class ProductDetailsPage {
 
   addToCart(product) {
 
-  	// console.log('cart storage', this.storage.get('cart').length);
-
-
   	// this.storage.remove('cart');
   	this.storage.get("cart").then((data) => {
-  		// let self = this;
-  		console.log('storage data', data);
-  		if(data == null || data.length == 0) {
-  			
-  			console.log('null');
 
-  			this.cart.push({
+  		let self = this;
+
+  		if(data == null || data.length == 0) {
+
+  			self.cart.push({
   				"product": product,
   				"qty": 1,
   				"amount": parseFloat(product.price)
   			});
-
-  			this.storage.set('cart', this.cart)
-  			console.log('cart', this.cart);
-  			// console.log('cart_get', this.storage.get('cart'));
+  			this.storage.set('cart', self.cart).then( () => {
+  				console.log('Cart Updated');
+  				this.toastCtrl.create({
+  					message: "Cart Updated",
+  					duration: 2000
+  				}).present();
+  			})
 
   		} else {
-  			// console.log('else');
-  			data.forEach(function(value) {
-  				let self = this;
-  				// console.log('value', value);
-  				// console.log('product_id', product.id);
-  				if(product.id == value.product.id) {
-  					console.log('same, qty + 1')
-  					let qty = value.qty + 1;
-  					// self.cart.qty = qty;
-  					// console.log('cartqty', self.cart);
+  			let added = 0;
+  			console.log('else');
+  			for(let i = 0; i < data.length; i++) { // find product in cart
 
+  				if(product.id == data[i].product.id) {
+  					console.log('found match', data[i]);
+  					let new_qty = data[i].qty;
+
+  					data[i].qty = new_qty + 1;
+  					data[i].amount = parseFloat(data[i].amount) + parseFloat(data[i].product.price);
+  					added = 1;
+
+  					this.storage.set('cart', data).then( () => {
+		  				console.log('Cart Updated');
+		  				this.toastCtrl.create({
+		  					message: "Cart Updated",
+		  					duration: 2000
+		  				}).present();
+		  			})
   				}
+	  		}
 
-  			});
-  			// console.log('cart', self.cart);
-  			// for(let i = 0; i < data.length; i++) {
-  				// console.log('for', data[i]);
+	  		if(added == 0) { // if product does not exist in the cart, add it
+	  			console.log('New product');
+	  			let temp: any[] = ({
+	  				"product": product,
+	  				"qty": 1,
+	  				"amount": parseFloat(product.price)
+	  			});
 
-	  		// 		if(product.id == data[i].product.id) {
-	  		// 			console.log('product added to the cart');
-
-	  		// 			let qty = data[i].qty;
-
-	  		// 			data[i].qty = qty + 1;
-	  		// 			data[i].amount = parseFloat(data[i].amount) + parseFloat(data[i].product.price);
-	  		// 			added = 1;
-	  		// 		}
-	  		// 	}
-	  		// }
+	  			this.storage.set('cart', data.concat(temp)).then( () => {
+	  				console.log('Cart Updated');
+	  				this.toastCtrl.create({
+	  					message: "Cart Updated",
+	  					duration: 2000
+	  				}).present();
+  				})
+	  		}
 	  	}
   	})
+
+  	setTimeout(() => {
+      this.storage.get('cart').then((data)=>{
+				// console.log('final storage', data);
+				this.total_cart = data.length;
+				// console.log('total cart', this.total_cart)
+  		});
+    }, 1000);
+	  
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad ProductDetailsPage');
+    this.storage.get('cart').then((data)=>{
+      this.total_cart = data.length;
+    });
   }
 
 }

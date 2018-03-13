@@ -1,3 +1,18 @@
 page-product-by-categories {
 
 }
+
+.page-product-categories-navbar {
+	.top-cart-button {
+		position: absolute;
+	    bottom: 5px;
+	    right: 0;
+	    /* background: #aaa; */
+	    font-size: 24px;
+	}
+	ion-badge {
+		position: absolute;
+	    top: 0;
+	    right: 10px;
+	}
+}

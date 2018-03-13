@@ -62,9 +62,8 @@ export class MenuPage {
   }
 
   getClickedCategory(category) {
-    self = this;
-    self.Woocommerce.getAsync("products?category=" + category.id).then((data) => {
-    self.navCtrl.push(ProductByCategoriesPage, {"productsbycategory": JSON.parse(data.body), "category": category});
+    this.Woocommerce.getAsync("products?category=" + category.id).then((data) => {
+    this.navCtrl.push(ProductByCategoriesPage, {"productsbycategory": JSON.parse(data.body), "category": category});
 
     }, (err) => {
       console.log(err);
