@@ -3,7 +3,7 @@
 
   <ion-navbar class="page-cart-navbar">
     <ion-title>My Cart</ion-title>
-    <button class="close-modal" ion-button clear item-end (click)="closeModal()">
+    <button class="close-modal" ion-button clear item-end>
 		Close
 	</button>
   </ion-navbar>
@@ -50,14 +50,14 @@
 		</ion-card>
 	</ion-grid>
 </ion-content>
-<!-- <ion-footer>
+<ion-footer>
 	<ion-toolbar>
 		<ion-grid>
 			<ion-row>
 				<ion-col>
-					<button ion-button color="danger" outline block (click)="closeModal()">Back</button>
+					<button ion-button block (click)="checkOut()">CHECKOUT</button>
 				</ion-col>
 			</ion-row>
 		</ion-grid>
 	</ion-toolbar>
-</ion-footer> -->
+</ion-footer>

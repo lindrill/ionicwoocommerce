@@ -2,7 +2,7 @@
 
   <ion-navbar class="page-product-categories-navbar ">
     <ion-title>{{ category.name }}</ion-title>
-    <button ion-button clear class="top-cart-button">
+    <button ion-button clear class="top-cart-button" (click)="openCart()">
       <ion-icon ios="ios-cart" md="md-cart"></ion-icon>
       <ion-badge color="danger">{{ total_cart }}</ion-badge>
     </button>

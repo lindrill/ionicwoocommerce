@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { NavController, NavParams, Platform } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
 import { ProductDetailsPage } from '../product-details/product-details';
+import { CartPage } from '../cart/cart';
 
 @Component({
   selector: 'page-product-by-categories',
@@ -24,6 +25,10 @@ export class ProductByCategoriesPage {
 
   openProductDetailsPage(product) {
     this.navCtrl.push(ProductDetailsPage, {'product_details': product});
+  }
+
+  openCart() {
+    this.navCtrl.push(CartPage);
   }
 
   ngOnInit() {

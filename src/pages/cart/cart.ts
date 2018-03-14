@@ -27,7 +27,6 @@ export class CartPage {
   			if(this.cartItems.length > 0) {
   				let self = this; 
   				this.cartItems.forEach(function(item, index) {
-  					// console.log('foreach item', index);
   					self.total = self.total + (item.product.price * item.qty);
   				})
   			} else {
@@ -38,9 +37,8 @@ export class CartPage {
 
   		})
   	})
-
-  	// console.log('total outside', this.total);
   }
+  
 
   removeFromCart(item, i) {
 
@@ -57,28 +55,16 @@ export class CartPage {
   	if(this.cartItems.length == 0) {
   		this.showEmptyCartMessage = true;
   	}
+  }
+
+
+  checkOut() {
 
   }
 
-  closeModal() {
-  	this.viewCtrl.dismiss();
-  	// this.navCtrl.push(this.total_cart);
-  	// this.navCtrl.push(ProductDetailsPage);
-  }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad CartPage');
-  }
-
-  ionViewWilLeave() {
-    console.log('ionViewWilLeave');
-    this.storage.get('cart').then((data)=>{
-      this.total_cart = data.length;
-    });
-  }
-
-  ngAfterViewInit() {
-  	console.log('ngAfterViewInit');
   }
 
 }

@@ -112,8 +112,9 @@ export class ProductDetailsPage {
   }
 
   openCart() {
-  	let modal = this.modalCtrl.create(CartPage);
-    modal.present();
+  	// let modal = this.modalCtrl.create(CartPage);
+   //  modal.present();
+    this.navCtrl.push(CartPage);
   }
 
   ionViewDidLoad() {
