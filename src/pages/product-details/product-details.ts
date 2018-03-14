@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams, ToastController } from 'ionic-angular';
+import { NavController, NavParams, ToastController, ModalController } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
+import { CartPage } from '../cart/cart';
 import * as WC from 'woocommerce-api';
 
 @Component({
@@ -15,7 +16,8 @@ export class ProductDetailsPage {
 	cart: any[] = [];
 	total_cart: number;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public storage: Storage, public toastCtrl: ToastController) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public storage: Storage, public toastCtrl: ToastController, public modalCtrl: ModalController) {
+
   	this.product_details.push(this.navParams.get("product_details"));
 
   	this.Woocommerce = WC({
@@ -81,11 +83,11 @@ export class ProductDetailsPage {
 
 	  		if(added == 0) { // if product does not exist in the cart, add it
 	  			console.log('New product');
-	  			let temp: any[] = ({
+	  			let temp: any[] = [{
 	  				"product": product,
 	  				"qty": 1,
 	  				"amount": parseFloat(product.price)
-	  			});
+	  			}];
 
 	  			this.storage.set('cart', data.concat(temp)).then( () => {
 	  				console.log('Cart Updated');
@@ -93,14 +95,15 @@ export class ProductDetailsPage {
 	  					message: "Cart Updated",
 	  					duration: 2000
 	  				}).present();
-  				})
+  				});
+
 	  		}
 	  	}
   	})
 
   	setTimeout(() => {
       this.storage.get('cart').then((data)=>{
-				// console.log('final storage', data);
+				console.log('final storage', data);
 				this.total_cart = data.length;
 				// console.log('total cart', this.total_cart)
   		});
@@ -108,8 +111,20 @@ export class ProductDetailsPage {
 	  
   }
 
+  openCart() {
+  	let modal = this.modalCtrl.create(CartPage);
+    modal.present();
+  }
+
   ionViewDidLoad() {
     console.log('ionViewDidLoad ProductDetailsPage');
+    this.storage.get('cart').then((data)=>{
+      this.total_cart = data.length;
+    });
+  }
+
+  ionViewWillEnter() {
+    console.log('ionViewWillEnter');
     this.storage.get('cart').then((data)=>{
       this.total_cart = data.length;
     });
